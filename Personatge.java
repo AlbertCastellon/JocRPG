@@ -5,7 +5,7 @@ enum Race {
 public class Personatge {
   private String name;
   private Race race;
-  private int edat;
+  private int age;
   private double hp;
   private double mp;
   private double str;
@@ -18,10 +18,10 @@ public class Personatge {
   public Personatge() {
 
   }
-  public Personatge(String name, Race race, int edat, double hp, double mp, double str, double dex, double con, double inte, double wis, double luck) {
+  public Personatge(String name, Race race, int age, double hp, double mp, double str, double dex, double con, double inte, double wis, double luck) {
     this.name = name;
     this.race = race;
-    this.edat = edat;
+    this.age = age;
     this.hp = hp;
     this.mp = mp;
     this.str = str;
@@ -48,12 +48,12 @@ public class Personatge {
     this.race = race;
   }
 
-  public int getEdat() {
-    return edat;
+  public int getAge() {
+    return age;
   }
 
-  public void setEdat(int edat) {
-    this.edat = edat;
+  public void setEdat(int age) {
+    this.age = age;
   }
 
   public double getHp() {
