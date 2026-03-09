@@ -156,4 +156,13 @@ public class Personatge {
     }
   }
 
+  public boolean dodge() {
+    boolean dodge = false;
+    double probDodge = (dex-5) * 3.33;
+    int randomize = (int) (Math.random() * 100) + 1;
+    if(randomize <= probDodge) {
+      dodge = true;
+    }
+    return dodge;
+  }
 }
