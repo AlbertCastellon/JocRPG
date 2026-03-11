@@ -15,38 +15,34 @@ public class videojoc {
     public void principal() {
         int option;
 
-    do {
-        System.out.println("\n===== MENU =====");
-        System.out.println("1. Crear personatge manual");
-        System.out.println("2. Crear personatge automàtic");
-        System.out.println("3. Llistar personatges");
-        System.out.println("4. Crear arma");
-        System.out.println("5. Assignar arma");
-        System.out.println("0. Sortir");
+        do {
+            System.out.println("\n===== MENU =====");
+            System.out.println("1. Gestionar Personatges");
+            System.out.println("2. Gestionar armes");
+            System.out.println("0. Sortir");
 
-        option = getInt();
+            option = getInt();
 
-        switch (option) {
-            case 1:
-                // crear personaje
-                break;
-            case 2:
-                // auto personaje
-                break;
-            case 3:
-                listCharacters();
-                break;
-            case 4:
-                // crear arma
-                break;
-            case 5:
-                // asignar arma
-                break;
-        }
+            switch (option) {
+                case 1:
+                    pjGestion();
+                    break;
+                case 2:
+                    // auto personaje
+                    break;
+                case 3:
 
-    } while (option != 0);
-}
+                    break;
+                case 4:
+                    // crear arma
+                    break;
+                case 5:
+                    // asignar arma
+                    break;
+            }
 
+        } while (option != 0);
+    }
 
     public void createPJManual(String name, Race race, int age, double str, double dex, double con, double inte,
             double wis, double luck) {
@@ -64,7 +60,7 @@ public class videojoc {
             arr[i] = 5 + increase;
             pointsLeft -= increase;
         }
-        if(pointsLeft > 0){
+        if (pointsLeft > 0) {
             arr[5] += pointsLeft;
             pointsLeft = 0;
         }
@@ -104,7 +100,7 @@ public class videojoc {
             System.out.println("2. Destral");
             System.out.println("3. Maça");
             System.out.println("4. Arc");
-            boolean valid = true;
+            boolean valid = false;
             WeaponType wType = WeaponType.SWORD;
             do {
                 int input = getInt();
@@ -127,25 +123,25 @@ public class videojoc {
                         break;
 
                     default:
-                        System.out.println("Opció incorrecta");;
+                        System.out.println("Opció incorrecta");
+                        ;
                         break;
                 }
             } while (!valid);
             System.out.println("És màgica (s/n)");
             char answer = sc.next().charAt(0);
             boolean magic = false;
-            if(answer == 's'){
+            if (answer == 's') {
                 magic = true;
             }
             System.out.println("quin valor d'atac tindrà?");
             double power = sc.nextDouble();
             createNewWeapon(name, wType, magic, power);
-            pj.addWeapon(weapons.get(weapons.size()-1));
-        }
-        else {
+            pj.addWeapon(weapons.get(weapons.size() - 1));
+        } else {
             pj.addWeapon(weapons.get(index));
         }
-        
+
     }
 
     public void createNewWeapon(String name, WeaponType type, boolean magic, double power) {
@@ -169,11 +165,251 @@ public class videojoc {
         return value;
     }
 
-    public void listCharacters() {
-        for(int i = 0; i < personatges.size(); i++) {
-            System.out.println("Personatge " + (i+1));
-            System.out.println(personatges.get(i).toString());
+    public void listArrayList(boolean pj) {
+        if (pj) {
+            for (int i = 0; i < personatges.size(); i++) {
+                System.out.println("Personatge " + (i + 1));
+                System.out.println(personatges.get(i).toString());
+            }
+        } else {
+            for (int i = 0; i < weapons.size(); i++) {
+                System.out.println("Arma " + (i + 1));
+                System.out.println(weapons.get(i).toString());
+            }
         }
+
     }
 
+    public void pjGestion() {
+        int option;
+        do {
+            System.out.println("\n===== GESTIÓ DE PERSONATGES =====");
+            System.out.println("1. Crear personatge manualment");
+            System.out.println("2. Crear personatge automaticament");
+            System.out.println("3. Llistar personatges");
+            System.out.println("0. Sortir");
+
+            option = getInt();
+            String name;
+            switch (option) {
+
+                case 1:
+                    System.out.println("Com vols que es digui el personatge?");
+                    name = sc.next();
+                    System.out.println("De quina raça és?");
+                    boolean valid = false;
+                    Race race = Race.ORC;
+                    do {
+                        System.out.println("1. Orc");
+                        System.out.println("2. Elf");
+                        System.out.println("3. Nan");
+                        System.out.println("4. Humà");
+
+                        int input = getInt();
+                        switch (input) {
+                            case 1:
+                                race = Race.ORC;
+                                valid = true;
+                                break;
+                            case 2:
+                                race = Race.ELF;
+                                valid = true;
+                                break;
+                            case 3:
+                                race = Race.DWARF;
+                                valid = true;
+                                break;
+                            case 4:
+                                race = Race.HUMAN;
+                                valid = true;
+                                break;
+
+                            default:
+                                System.out.println("Opció incorrecta");
+                                break;
+                        }
+                    } while (!valid);
+                    System.out.println("Quina edat té?");
+                    int age = getInt();
+                    System.out.println("El valor màxim total d'atributs és 80");
+                    System.out
+                            .println("Cada atribut té com a mínim el valor 5 quants punts vols posar a cada atribut?");
+                    double pointsLeft = 50;
+                    double increase;
+                    System.out.println("A força");
+                    do {
+                        increase = sc.nextDouble();
+                        if (increase > pointsLeft) {
+                            System.out.println("No tens suficients punts disponibles");
+                        }
+                    } while (increase > pointsLeft);
+
+                    double str = increaseStats(increase);
+                    pointsLeft = leftStatPoints(increase, pointsLeft);
+                    System.out.println("A destresa");
+                    do {
+                        increase = sc.nextDouble();
+                        if (increase > pointsLeft) {
+                            System.out.println("No tens suficients punts disponibles");
+                        }
+                    } while (increase > pointsLeft);
+                    double dex = increaseStats(increase);
+                    pointsLeft = leftStatPoints(increase, pointsLeft);
+                    System.out.println("A constitució");
+                    do {
+                        increase = sc.nextDouble();
+                        if (increase > pointsLeft) {
+                            System.out.println("No tens suficients punts disponibles");
+                        }
+                    } while (increase > pointsLeft);
+                    double con = increaseStats(increase);
+                    pointsLeft = leftStatPoints(increase, pointsLeft);
+                    System.out.println("A inteligencia");
+                    do {
+                        increase = sc.nextDouble();
+                        if (increase > pointsLeft) {
+                            System.out.println("No tens suficients punts disponibles");
+                        }
+                    } while (increase > pointsLeft);
+                    double inte = increaseStats(increase);
+                    pointsLeft = leftStatPoints(increase, pointsLeft);
+                    System.out.println("A sabiduria");
+                    do {
+                        increase = sc.nextDouble();
+                        if (increase > pointsLeft) {
+                            System.out.println("No tens suficients punts disponibles");
+                        }
+                    } while (increase > pointsLeft);
+                    double wis = increaseStats(increase);
+                    pointsLeft = leftStatPoints(increase, pointsLeft);
+                    double luck = 5;
+                    if (pointsLeft > 0) {
+                        System.out.println("Els punts sobrants s'assignen a sort");
+                        luck += pointsLeft;
+                    }
+                    System.out.println("Creant personatge...");
+                    createPJManual(name, race, age, str, dex, con, inte, wis, luck);
+                    System.out.println("S'ha creat el personatge correctament.");
+                    System.out.println(personatges.get((personatges.size() - 1)).toString());
+                    break;
+
+                case 2:
+                    System.out.println("Com vols que es digui el personatge?");
+                    name = sc.next();
+                    createPJAutomatic(name);
+                    break;
+                case 3:
+                    listArrayList(true);
+                    break;
+            }
+
+        } while (option != 0);
+
+    }
+
+    public double increaseStats(double increase) {
+        return 5 + increase;
+    }
+
+    public double leftStatPoints(double increase, double points) {
+        points -= increase;
+        System.out.println("Tens " + points + " punts restants");
+        return points;
+    }
+
+    public void weaponGestion() {
+        int option;
+        do {
+            System.out.println("\n===== GESTIÓ DE PERSONATGES =====");
+            System.out.println("1. Crear una nova arma");
+            System.out.println("2. Crear i assignar una nova arma");
+            System.out.println("3. Llistar armes");
+            System.out.println("0. Sortir");
+
+            option = getInt();
+            String name;
+            switch (option) {
+
+                case 1:
+                    System.out.println("Creació d'armes:");
+                    System.out.println("Com es dirà l'arma?");
+                    name = sc.next();
+                    System.out.println("Quin tipus d'arma és?");
+                    System.out.println("1. Espasa");
+                    System.out.println("2. Destral");
+                    System.out.println("3. Maça");
+                    System.out.println("4. Arc");
+                    boolean valid = false;
+                    WeaponType wType = WeaponType.SWORD;
+                    do {
+                        int input = getInt();
+                        switch (input) {
+                            case 1:
+                                wType = WeaponType.SWORD;
+                                valid = true;
+                                break;
+                            case 2:
+                                wType = WeaponType.AXE;
+                                valid = true;
+                                break;
+                            case 3:
+                                wType = WeaponType.MACE;
+                                valid = true;
+                                break;
+                            case 4:
+                                wType = WeaponType.BOW;
+                                valid = true;
+                                break;
+
+                            default:
+                                System.out.println("Opció incorrecta");
+                                ;
+                                break;
+                        }
+                    } while (!valid);
+                    System.out.println("És màgica (s/n)");
+                    char answer = sc.next().charAt(0);
+                    boolean magic = false;
+                    if (answer == 's') {
+                        magic = true;
+                    }
+                    System.out.println("quin valor d'atac tindrà?");
+                    double power = sc.nextDouble();
+                    createNewWeapon(name, wType, magic, power);
+                    break;
+                case 2:
+                    boolean correct = false;
+                    int numWeapon = 0;
+                    int numPj = 0;
+                    System.out.println("A quin personatje li vols afegir l'arma, posa el número del personatge");
+                    do {
+                        numPj = getInt();
+                        correct = true;
+                        if (numPj <= 0 || numPj > personatges.size()) {
+                            System.out.println("Personatge no vàlid");
+                            correct = false;
+                        }
+
+                    } while (!correct);
+
+                    System.out.println("Quina arma li vols assignar? Per crear una nova introdueix 0");
+                    correct = false;
+                    do {
+                        numWeapon = getInt();
+                        correct = true;
+                        if (numPj <= 0 || numPj > personatges.size()) {
+                            System.out.println("Personatge no vàlid");
+                            correct = false;
+                        }
+                    } while (!correct);
+
+                    assignWeapon(personatges.get(numPj - 1), (numWeapon - 1));
+                    break;
+                case 3:
+                    listArrayList(false);
+                    break;
+            }
+
+        } while (option != 0);
+    }
 }

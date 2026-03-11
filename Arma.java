@@ -16,7 +16,7 @@ public class Arma {
     }
 
     public Arma() {
-        
+
     }
 
     public String getName() {
@@ -50,4 +50,14 @@ public class Arma {
     public void setPower(double power) {
         this.power = power;
     }
+
+    @Override
+    public String toString() {
+        return "----- ARMA -----\n" +
+                "Nom: " + name + "\n" +
+                "Tipus: " + type + "\n" +
+                "Màgica: " + magic + "\n" +
+                "Power: " + power + "\n";
+    }
+
 }
