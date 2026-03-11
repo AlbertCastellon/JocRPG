@@ -25,19 +25,13 @@ public class videojoc {
 
             switch (option) {
                 case 1:
-                    pjGestion();
+                    pjManagement();
                     break;
                 case 2:
-                    // auto personaje
+                    weaponManagement();
                     break;
                 case 3:
 
-                    break;
-                case 4:
-                    // crear arma
-                    break;
-                case 5:
-                    // asignar arma
                     break;
             }
 
@@ -180,7 +174,7 @@ public class videojoc {
 
     }
 
-    public void pjGestion() {
+    public void pjManagement() {
         int option;
         do {
             System.out.println("\n===== GESTIÓ DE PERSONATGES =====");
@@ -317,7 +311,7 @@ public class videojoc {
         return points;
     }
 
-    public void weaponGestion() {
+    public void weaponManagement() {
         int option;
         do {
             System.out.println("\n===== GESTIÓ DE PERSONATGES =====");
