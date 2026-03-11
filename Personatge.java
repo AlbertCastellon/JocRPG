@@ -22,20 +22,23 @@ public class Personatge {
   public Personatge() {
 
   }
-  public Personatge(String name, Race race, int age, double str, double dex, double con, double inte, double wis, double luck) {
+
+  public Personatge(String name, Race race, int age, double str, double dex, double con, double inte, double wis,
+      double luck) {
     this.name = name;
     this.race = race;
     this.age = age;
-    this.hp = con*50;
-    this.mp = inte*30;
+    this.hp = con * 50;
+    this.mp = inte * 30;
     this.str = str;
     this.dex = dex;
     this.con = con;
     this.inte = inte;
     this.wis = wis;
     this.luck = luck;
+    this.weapons = new ArrayList<>();
   }
-  
+
   public String getName() {
     return name;
   }
@@ -134,35 +137,60 @@ public class Personatge {
 
   public double attack(boolean magic) {
     double damage = 0;
-    if(this.equipedWeapon.isMagic()){
-      damage = ((this.equipedWeapon.getPower() * this.inte)/100);
-    }else {
-      damage = this.str * ((1+this.equipedWeapon.getPower())/100);
+    if (this.equipedWeapon.isMagic()) {
+      damage = ((this.equipedWeapon.getPower() * this.inte) / 100);
+    } else {
+      damage = this.str * ((1 + this.equipedWeapon.getPower()) / 100);
     }
     return damage;
   }
 
   public void regenerateHp() {
-    this.hp += this.con*3;
-    if(this.hp > this.con*50){
-      this.hp = this.con*50;
+    this.hp += this.con * 3;
+    if (this.hp > this.con * 50) {
+      this.hp = this.con * 50;
     }
   }
 
   public void regenerateMp() {
-    this.mp += this.wis*2;
-    if(this.mp > this.inte*30){
-      this.mp = this.inte*30;
+    this.mp += this.wis * 2;
+    if (this.mp > this.inte * 30) {
+      this.mp = this.inte * 30;
     }
   }
 
   public boolean dodge() {
     boolean dodge = false;
-    double probDodge = (dex-5) * 3.33;
+    double probDodge = (dex - 5) * 3.33;
     int randomize = (int) (Math.random() * 100) + 1;
-    if(randomize <= probDodge) {
+    if (randomize <= probDodge) {
       dodge = true;
     }
     return dodge;
+  }
+
+  @Override
+  public String toString() {
+    String weaponName = "None";
+
+    if (equipedWeapon != null) {
+      weaponName = equipedWeapon.getName();
+    }
+
+    return "Personatge{" +
+        "name='" + name + '\'' +
+        ", race=" + race +
+        ", age=" + age +
+        ", hp=" + hp +
+        ", mp=" + mp +
+        ", str=" + str +
+        ", dex=" + dex +
+        ", con=" + con +
+        ", inte=" + inte +
+        ", wis=" + wis +
+        ", luck=" + luck +
+        ", equippedWeapon=" + weaponName +
+        ", weaponsOwned=" + (weapons != null ? weapons.size() : 0) +
+        '}';
   }
 }
