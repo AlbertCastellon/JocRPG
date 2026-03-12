@@ -33,7 +33,7 @@ public class videojoc {
                     weaponManagement();
                     break;
                 case 3:
-
+                    play(namePlayers, pjs);
                     break;
             }
 
@@ -393,7 +393,7 @@ public class videojoc {
                     do {
                         numWeapon = getInt();
                         correct = true;
-                        if (numPj <= 0 || numPj > personatges.size()) {
+                        if (numWeapon <= 0 || numWeapon > personatges.size()) {
                             System.out.println("Personatge no vàlid");
                             correct = false;
                         }
@@ -411,14 +411,14 @@ public class videojoc {
 
     public void play(String[] players, Personatge[] pjs) {
         System.out.println("Introdueix el nom del primer jugador");
-        players[1] = sc.next();
+        players[0] = sc.next();
         System.out.println("Introdueix el nom del segon jugador");
-        players[2] = sc.next();
+        players[1] = sc.next();
         listArrayList(true);
+        System.out.println("Introdueix el nombre del personatge que vols " + players[0]);
+        pjs[0] = personatges.get((getInt() - 1));
         System.out.println("Introdueix el nombre del personatge que vols " + players[1]);
-        pjs[1] = personatges.get((getInt()-1));
-        System.out.println("Introdueix el nombre del personatge que vols " + players[2]);
-        pjs[2] = personatges.get((getInt()-1));
+        pjs[1] = personatges.get((getInt() - 1));
         battle(players, pjs);
     }
 
@@ -426,9 +426,65 @@ public class videojoc {
         System.out.println("Comença el combat!!!");
         do {
             turn(players, pjs);
-        }while(pjs[1].getHp() > 0 && pjs[2].getHp() > 0);
+            System.out.println("----- VIDA -----");
+            System.out.println(pjs[0].getName() + ": " + pjs[0].getHp());
+            System.out.println(pjs[1].getName() + ": " + pjs[1].getHp());
+        } while (pjs[0].getHp() > 0 && pjs[1].getHp() > 0);
     }
-    public void turn(String[] players, Personatge[] pjs){
+
+    public void turn(String[] players, Personatge[] pjs) {
+        boolean[] defend = new boolean[2];
+        double[] damageCaused = new double[2];
+        boolean[] dodge = new boolean[2];
+        boolean[] crit = new boolean[2];
+        actionChoice(players, pjs, defend, damageCaused, 0);
+        actionChoice(players, pjs, defend, damageCaused, 1);
+        int enemy;
+
+        for (int i = 0; i < 2; i++) {
+
+            if (i == 0) {
+                enemy = 1;
+            } else {
+                enemy = 0;
+            }
+
+            if (!defend[enemy]) {
+                pjs[enemy].setHp(pjs[enemy].getHp() - damageCaused[i]);
+                System.out.println(players[i] + " fa " + damageCaused[i] + " de dany");
+            } else {
+                pjs[enemy].setHp(pjs[enemy].getHp() - (damageCaused[i]/2));
+                System.out.println(players[enemy] + " s'ha defensat i ha rebut la meitat de dany");
+            }
+
+        }
 
     }
+
+    public void actionChoice(String[] players, Personatge[] pjs, boolean[] defend, double[] damageCaused, int player) {
+        boolean check = false;
+        int action = 0;
+        System.out.println(players[player] + "què vols fer?");
+        do {
+            System.out.println("1. Atacar");
+            System.out.println("2. Defensar-te");
+            action = getInt();
+            if (action == 2 || action == 1) {
+                check = true;
+            } else {
+                System.out.println("Opció invàlida");
+            }
+        } while (!check);
+        switch (action) {
+            case 1:
+                damageCaused[player] = pjs[player].attack(pjs[player].getWeapon().isMagic());
+                break;
+            case 2:
+                defend[player] = true;
+                break;
+            default:
+                break;
+        }
+    }
+
 }
