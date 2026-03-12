@@ -393,8 +393,8 @@ public class videojoc {
                     do {
                         numWeapon = getInt();
                         correct = true;
-                        if (numWeapon <= 0 || numWeapon > personatges.size()) {
-                            System.out.println("Personatge no vàlid");
+                        if (numWeapon < 0 || numWeapon > weapons.size()) {
+                            System.out.println("Arma no vàlid");
                             correct = false;
                         }
                     } while (!correct);
