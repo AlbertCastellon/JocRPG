@@ -416,9 +416,19 @@ public class videojoc {
         players[2] = sc.next();
         listArrayList(true);
         System.out.println("Introdueix el nombre del personatge que vols " + players[1]);
-        pjs[1] = personatges.get(getInt());
+        pjs[1] = personatges.get((getInt()-1));
         System.out.println("Introdueix el nombre del personatge que vols " + players[2]);
-        pjs[2] = personatges.get(getInt());
+        pjs[2] = personatges.get((getInt()-1));
+        battle(players, pjs);
+    }
+
+    public void battle(String[] players, Personatge[] pjs) {
+        System.out.println("Comença el combat!!!");
+        do {
+            turn(players, pjs);
+        }while(pjs[1].getHp() > 0 && pjs[2].getHp() > 0);
+    }
+    public void turn(String[] players, Personatge[] pjs){
 
     }
 }
