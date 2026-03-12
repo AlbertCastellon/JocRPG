@@ -14,11 +14,13 @@ public class videojoc {
 
     public void principal() {
         int option;
-
+        String[] namePlayers = new String[2];
+        Personatge[] pjs = new Personatge[2];
         do {
             System.out.println("\n===== MENU =====");
             System.out.println("1. Gestionar Personatges");
             System.out.println("2. Gestionar armes");
+            System.out.println("3. Jugar");
             System.out.println("0. Sortir");
 
             option = getInt();
@@ -405,5 +407,18 @@ public class videojoc {
             }
 
         } while (option != 0);
+    }
+
+    public void play(String[] players, Personatge[] pjs) {
+        System.out.println("Introdueix el nom del primer jugador");
+        players[1] = sc.next();
+        System.out.println("Introdueix el nom del segon jugador");
+        players[2] = sc.next();
+        listArrayList(true);
+        System.out.println("Introdueix el nombre del personatge que vols " + players[1]);
+        pjs[1] = personatges.get(getInt());
+        System.out.println("Introdueix el nombre del personatge que vols " + players[2]);
+        pjs[2] = personatges.get(getInt());
+
     }
 }
