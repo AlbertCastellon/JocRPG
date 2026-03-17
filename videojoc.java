@@ -432,6 +432,15 @@ public class videojoc {
             System.out.println(pjs[0].getName() + ": " + pjs[0].getHp());
             System.out.println(pjs[1].getName() + ": " + pjs[1].getHp());
         } while (pjs[0].getHp() > 0 && pjs[1].getHp() > 0);
+        if(pjs[0].getHp() <= 0 && pjs[1].getHp() <= 0){
+            System.out.println("Els personatges s'han matat mutuament! EMPAT");
+        }else if (pjs[0].getHp() <= 0) {
+            System.out.println("El personatge 1 ha mort!");
+            System.out.println("Guanya " + players[1]);
+        }else {
+            System.out.println("El personatge 2 ha mort!");
+            System.out.println("Guanya " + players[0]);
+        }
     }
 
     public void turn(String[] players, Personatge[] pjs) {
