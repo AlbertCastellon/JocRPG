@@ -436,9 +436,12 @@ public class videojoc {
         boolean[] defend = new boolean[2];
         double[] damageCaused = new double[2];
         boolean[] dodge = new boolean[2];
-        boolean[] crit = new boolean[2];
         actionChoice(players, pjs, defend, damageCaused, 0);
         actionChoice(players, pjs, defend, damageCaused, 1);
+        for(int i = 0; i < pjs.length; i++) {
+            dodge[i] = pjs[i].dodge();   
+        }
+        
         int enemy;
 
         for (int i = 0; i < 2; i++) {
@@ -448,6 +451,11 @@ public class videojoc {
             } else {
                 enemy = 0;
             }
+            if(!dodge[enemy]){
+
+            if(calculateCrit(pjs[i] , pjs[enemy])){
+                damageCaused[i] = damageCaused[i]*1.5;
+            }
 
             if (!defend[enemy]) {
                 pjs[enemy].setHp(pjs[enemy].getHp() - damageCaused[i]);
@@ -456,7 +464,9 @@ public class videojoc {
                 pjs[enemy].setHp(pjs[enemy].getHp() - (damageCaused[i]/2));
                 System.out.println(players[enemy] + " s'ha defensat i ha rebut la meitat de dany");
             }
-
+            }else{
+                System.out.println("L'enemic ha esquivat l'atac.");
+            }
         }
 
     }
@@ -487,4 +497,13 @@ public class videojoc {
         }
     }
 
+    public boolean calculateCrit(Personatge attacker, Personatge enemy){
+        boolean isCrit = false;
+        double critChance = (10 + attacker.getLuck() - enemy.getLuck())/100;
+        double random = Math.random();
+        if(critChance > random) {
+            isCrit = true;
+        }
+        return isCrit;
+    }
 }

@@ -127,8 +127,19 @@ public class Personatge {
     this.luck = luck;
   }
 
+  public Arma getWeapon() {
+    return this.equipedWeapon;
+  }
+  
   public void equipWeapon(int index) {
-    this.equipedWeapon = weapons.get(index);
+    Arma newWeapon = weapons.get(index);
+    if(newWeapon.isMagic() && this.inte<10){
+      System.out.println("El personatge no pot equipar armes màgiques.");
+    }else{
+      this.equipedWeapon = newWeapon;
+      System.out.println("Arma equipada correctament.");
+    }
+    
   }
 
   public void addWeapon(Arma weapon) {
@@ -169,7 +180,6 @@ public class Personatge {
     return dodge;
   }
 
-  @Override
   public String toString() {
     String weaponName = "None";
 
