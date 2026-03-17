@@ -146,12 +146,12 @@ public class Personatge {
     this.weapons.add(weapon);
   }
 
-  public double attack(boolean magic) {
+  public double attack() {
     double damage = 0;
     if (this.equipedWeapon.isMagic()) {
       damage = ((this.equipedWeapon.getPower() * this.inte) / 100);
     } else {
-      damage = this.str * ((1 + this.equipedWeapon.getPower()) / 100);
+      damage = this.str * (1 + this.equipedWeapon.getPower()) / 100;
     }
     return damage;
   }
@@ -187,20 +187,20 @@ public class Personatge {
       weaponName = equipedWeapon.getName();
     }
 
-    return "Personatge{" +
-        "name='" + name + '\'' +
-        ", race=" + race +
-        ", age=" + age +
-        ", hp=" + hp +
-        ", mp=" + mp +
-        ", str=" + str +
-        ", dex=" + dex +
-        ", con=" + con +
-        ", inte=" + inte +
-        ", wis=" + wis +
-        ", luck=" + luck +
-        ", equippedWeapon=" + weaponName +
-        ", weaponsOwned=" + (weapons != null ? weapons.size() : 0) +
-        '}';
+    return "\n=== PERSONATGE ===" +
+       "\nNom: " + name +
+       "\nRaça: " + race +
+       "\nEdat: " + age +
+       "\nHP: " + hp +
+       "\nMP: " + mp +
+       "\nSTR: " + str +
+       "\nDEX: " + dex +
+       "\nCON: " + con +
+       "\nINT: " + inte +
+       "\nWIS: " + wis +
+       "\nLUCK: " + luck +
+       "\nArma equipada: " + weaponName +
+       "\nArmes totals: " + weapons.size() +
+       "\n==================";
   }
 }

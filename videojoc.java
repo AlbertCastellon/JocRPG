@@ -487,7 +487,7 @@ public class videojoc {
         } while (!check);
         switch (action) {
             case 1:
-                damageCaused[player] = pjs[player].attack(pjs[player].getWeapon().isMagic());
+                damageCaused[player] = pjs[player].attack();
                 break;
             case 2:
                 defend[player] = true;
