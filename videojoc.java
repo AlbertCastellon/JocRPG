@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class videojoc {
@@ -154,8 +155,9 @@ public class videojoc {
             try {
                 value = sc.nextInt();
                 valid = true;
-            } catch (NumberFormatException e) {
+            } catch (InputMismatchException e) {
                 System.out.println("Error: introdueix un nombre enter vàlid.");
+                sc.nextLine();
             }
         }
         return value;
